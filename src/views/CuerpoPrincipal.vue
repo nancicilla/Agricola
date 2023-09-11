@@ -15,7 +15,7 @@
           </Modal>
         </div>
         <div class="row">
-          <Cuerpo :opcion="this.$route.params.opcion"></Cuerpo>  
+          <Cuerpo :opcion="this.$route.params.opcion" :recargar="this.recargar"></Cuerpo>  
         </div>
         <!-- end: page -->
 </template>
@@ -25,13 +25,31 @@ import Cuerpo from '@/components/Cuerpo.vue';
 import FormProducto from './FormProducto.vue';
 export default{
   data(){
-    return{showModal:false}
+    return{showModal:false,recargar:1}
   },
   components:{Modal,Cuerpo,FormProducto},
   methods:{
-    guardar(){
-      console.log("estamos a punto de guardar...");
-      this.showModal=false;
+    cambiar(){
+      console.log("valor de recargar "+this.recargar);
+      this.recargar=1-this.recargar;
+      console.log("valor de recargar "+this.recargar);
+    },
+    guardar(elemento){
+       if (this.$route.params.opcion=='Producto'){
+         this.axios.post("http://127.0.0.1:3030/api/v1/productos/",{
+    nombre: elemento[0],
+    descripcion: elemento[1]
+  }).then(this.cambiar()
+    ).catch( function(error){
+    console.error(error)
+  });
+console.log("valor de recargar fura de then"+this.recargar);
+ 
+       }else if(this.$route.params.opcion=='Fertilizante'){}
+       else{
+
+       }
+       this.showModal=false;
     }
   }
 }

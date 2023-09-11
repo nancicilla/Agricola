@@ -24,7 +24,8 @@
 <script >
  export default{
     props:{
-        opcion:{type:String,required:true}
+        opcion:{type:String,required:true},
+        recargar:{type:Number}
     },
     data(){
         return{

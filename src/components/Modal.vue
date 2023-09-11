@@ -1,12 +1,35 @@
+<!--
 <script setup>
 const props = defineProps({
-  show: Boolean,
-   estilo:String
+  
 })
-
-
 </script>
+-->
+<script>
+export default{
+  props:{show: Boolean,
+   estilo:String
 
+  },
+ 
+  computed:{
+    informacion(){
+      let elemetos=document.getElementById("formRegistrar").querySelectorAll("[data-informacion]"); 
+      let vector=[];
+      for(let i=0;i<elemetos.length;i++){
+       
+        vector.push(elemetos[i].value);
+       }
+      
+      
+      
+     return vector;
+    }
+  }
+
+  
+}
+</script>
 <template>
   <Transition name="modal">
     <div v-if="show" class="modal-mask">
@@ -27,7 +50,7 @@ const props = defineProps({
             >Cerrar</button>
             <button
               class="modal-default-button mb-xs mt-xs mr-xs btn btn-success"
-              @click="$emit('guardar')"
+              @click="$emit('guardar',this.informacion)"
             >Guardar</button>
             
           </slot>
